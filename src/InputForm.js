@@ -39,6 +39,8 @@ export default class InputForm extends React.Component {
     let input = e.target;
 
     for (let i = 0; i < input.files.length; i++) {
+      console.log(input.files);
+
       let reader = new FileReader();
       reader.onload = b =>
         this.setState({ image: this.state.image.concat(b.target.result) });
@@ -81,7 +83,7 @@ export default class InputForm extends React.Component {
         return <h1>Loading</h1>;
       } else {
         return (
-          <div>
+          <div id="crime-report">
             <h2>
               Zip code:{" "}
               {
@@ -92,11 +94,13 @@ export default class InputForm extends React.Component {
             </h2>
             <h2>
               Incident:{" "}
-              {
-                this.state.report.CrimeInstance[
-                  this.state.report.CrimeInstance.length - 1
-                ].incident
-              }
+              <div id="crime-text">
+                {
+                  this.state.report.CrimeInstance[
+                    this.state.report.CrimeInstance.length - 1
+                  ].incident
+                }
+              </div>
             </h2>
             <h2>
               Type of crime:{" "}
@@ -107,14 +111,16 @@ export default class InputForm extends React.Component {
               }
             </h2>
             <ul>
-              Images of crime:{" "}
-              {this.state.report.CrimeInstance[
-                this.state.report.CrimeInstance.length - 1
-              ].image.map(x => (
-                <li>
-                  <img src={x} height="300px" width="300px"></img>
-                </li>
-              ))}
+              <h2>Images of crime scene: </h2>
+              <div id="crime-images">
+                {this.state.report.CrimeInstance[
+                  this.state.report.CrimeInstance.length - 1
+                ].image.map(x => (
+                  <li>
+                    <img src={x} height="300px" width="300px"></img>
+                  </li>
+                ))}
+              </div>
             </ul>
           </div>
         );
@@ -166,7 +172,9 @@ export default class InputForm extends React.Component {
           onChange={this.handleImage}
           multiple
         ></input>
-        <Button onClick={this.handleSubmit} className="submit-crime">Submit Crime Report</Button>
+        <Button onClick={this.handleSubmit} className="submit-crime">
+          Submit Crime Report
+        </Button>
         <Button onClick={this.handleReport} id="get-report">
           Click to view your full report
         </Button>
